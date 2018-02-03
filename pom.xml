@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.10.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>no.dsb.nlfp</groupId>
+    <artifactId>nflp-ui</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>nflp-ui</name>
+    <description>Client UI fir NLFP</description>
+
+    <properties>
+        <!-- Dependency versions: -->
+        <java.version>1.8</java.version>
+        <!--
+        Logback < 1.2.0 contains a rather serious serialization vulnerability.
+        See
+        - https://github.com/spring-projects/spring-boot/issues/8635
+        - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2017-5929
+        - https://logback.qos.ch/news.html
+        Override logback.version included in spring-boot-starter-logging:
+        -->
+        <logback.version>1.2.3</logback.version>
+        <main.basedir>${project.basedir}</main.basedir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <spring-boot-admin.version>1.5.4</spring-boot-admin.version>
+        <dsb-spring-boot-starter-status.version>17.02.03.45949</dsb-spring-boot-starter-status.version>
+        <dsb-spring-boot-starter-metrics.version>17.06.23.34148</dsb-spring-boot-starter-metrics.version>
+        <dsb-spring-boot-starter-java-melody.version>17.08.29.47618</dsb-spring-boot-starter-java-melody.version>
+        <logstash-logback-encoder.version>4.11</logstash-logback-encoder.version>
+        <springfox-swagger.version>2.7.0</springfox-swagger.version>
+        <swagger.version>1.5.10</swagger.version>
+        <com.google.auto.value.version>1.3</com.google.auto.value.version>
+        <spring-cloud-starter-zuul.version>1.3.5.RELEASE</spring-cloud-starter-zuul.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${spring-boot-admin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>no.dsb.sambas</groupId>
+            <artifactId>dsb-spring-boot-starter-status</artifactId>
+            <version>${dsb-spring-boot-starter-status.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>no.dsb.sambas</groupId>
+            <artifactId>dsb-spring-boot-starter-metrics</artifactId>
+            <version>${dsb-spring-boot-starter-metrics.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>no.dsb.sambas</groupId>
+            <artifactId>dsb-spring-boot-starter-java-melody</artifactId>
+            <version>${dsb-spring-boot-starter-java-melody.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>${logstash-logback-encoder.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox-swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.auto.value</groupId>
+            <artifactId>auto-value</artifactId>
+            <version>${com.google.auto.value.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zuul</artifactId>
+            <version>${spring-cloud-starter-zuul.version}</version>
+        </dependency>
+    </dependencies>
+
+    <scm>
+        <connection>scm:git:git@vgit.utv.lokal:7999/nlfp/nlfp-ui.git</connection>
+        <developerConnection>scm:git:git@vgit.utv.lokal:7999/nlfp/nlfp-ui.git</developerConnection>
+        <url>http://vgit.utv.lokal/projects/NLFP/repos/nlfp-ui</url>
+    </scm>
+
+    <build>
+        <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.6</version>
+                <configuration>
+                    <workingDirectory>frontend</workingDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>install node and yarn</id>
+                        <goals>
+                            <goal>install-node-and-yarn</goal>
+                        </goals>
+                        <configuration>
+                            <nodeVersion>v8.9.1</nodeVersion>
+                            <yarnVersion>v1.3.2</yarnVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>yarn install</id>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>yarn run build</id>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run build</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--<plugin>
+                &lt;!&ndash; Generate git information that is displayed in Spring Boot admin: &ndash;&gt;
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>-->
+        </plugins>
+    </build>
+
+    <!-- Common settings for all DSB projects: -->
+    <issueManagement>
+        <system>jira</system>
+        <url>http://jira.dsb.no/browse/FP</url>
+    </issueManagement>
+    <ciManagement>
+        <system>jenkins</system>
+        <url>http://utvvjenkins1.utv.lokal/job/nlfp/job/nlfp-ui/job/master/</url>
+    </ciManagement>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>dsb-nexus</id>
+            <url>http://vnexus.utv.lokal/content/groups/dsb/</url>
+        </pluginRepository>
+    </pluginRepositories>
+    <repositories>
+        <repository>
+            <id>dsb-nexus</id>
+            <url>http://vnexus.utv.lokal/content/groups/dsb/</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>dsb-releases</id>
+            <name>DSB Release repository</name>
+            <url>http://vnexus.utv.lokal/content/repositories/dsb-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>dsb-snapshot-releases</id>
+            <name>DSB Snapshot repository</name>
+            <url>http://vnexus.utv.lokal/content/repositories/dsb-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+
+</project>

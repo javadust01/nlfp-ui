@@ -1,0 +1,103 @@
+info.version: @project.version@
+server:
+  context-path: /nlfp-ui
+  port: 8087
+management:
+  context-path: /sysadmin
+  port: 8187
+  security:
+    enabled: false
+
+spring:
+  application:
+    name: NLFP-Ui
+  boot:
+    admin:
+      url: http://localhost:9999/boot-admin
+  mvc:
+    servlet:
+      # We don't want to wait for initial request to initialize the servlet:
+      load-on-startup: 1
+  # Disable servo metrics (comes with Zuul), use the regular included with spring boot:
+  metrics.servo.enabled: false
+
+---
+spring:
+  profiles: default
+keycloak:
+  realm: ADR
+  url: http://utvvfpt06.dsbutv.lokal:8080/auth
+  clientId: nlfp-ui
+
+zuul:
+  routes:
+    api:
+      path: /api/**
+      url: http://localhost:8088/nlfp/api/
+      # No blacklist of headers, we need cookies and auth:
+      sensitiveHeaders:
+
+environment: local
+
+---
+spring:
+  profiles: dev
+  boot:
+    admin:
+      url: http://utvvfpt06.dsbutv.lokal/boot-admin
+
+zuul:
+  routes:
+    api:
+      path: /api/**
+      url: http://utvvfpt06.dsbutv.lokal/nlfp/api/
+      # No blacklist of headers, we need cookies and auth:
+      sensitiveHeaders:
+
+keycloak:
+  realm: ADR
+  url: http://utvvfpt06.dsbutv.lokal:8080/auth
+  clientId: nlfp-ui
+
+environment: development
+
+---
+spring:
+  profiles: test
+  boot:
+    admin:
+      url: https://testfagsystem.dsb.no/boot-admin
+
+zuul:
+  routes:
+    api:
+      path: /api/**
+      url: https://testfagsystem.dsb.no/nlfp/api/
+      # No blacklist of headers, we need cookies and auth:
+      sensitiveHeaders:
+
+keycloak:
+  realm: ADR
+  url: https://testinternlogin.dsb.no/auth
+  clientId: nlfp-ui
+
+environment: test
+
+---
+spring:
+  profiles: prod
+
+zuul:
+  routes:
+    api:
+      path: /api/**
+      # url: https://sambas.dsb.no/nlfp/api/
+      # No blacklist of headers, we need cookies and auth:
+      sensitiveHeaders:
+
+keycloak:
+  realm: ADR
+  url: https://internlogin.dsb.no/auth
+  clientId: nlfp-ui
+
+environment: production
