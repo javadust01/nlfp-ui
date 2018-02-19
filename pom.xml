@@ -170,6 +170,7 @@
         <system>jenkins</system>
         <url>http://utvvjenkins1.utv.lokal/job/nlfp/job/nlfp-ui/job/master/</url>
     </ciManagement>
+    <!--
     <pluginRepositories>
         <pluginRepository>
             <id>dsb-nexus</id>
@@ -195,6 +196,6 @@
             <url>http://vnexus.utv.lokal/content/repositories/dsb-snapshots</url>
         </snapshotRepository>
     </distributionManagement>
-
+-->
 
 </project>
