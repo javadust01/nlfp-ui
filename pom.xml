@@ -51,6 +51,7 @@
             <artifactId>spring-boot-admin-starter-client</artifactId>
             <version>${spring-boot-admin.version}</version>
         </dependency>
+        <!--
         <dependency>
             <groupId>no.dsb.sambas</groupId>
             <artifactId>dsb-spring-boot-starter-status</artifactId>
@@ -69,6 +70,7 @@
             <version>${dsb-spring-boot-starter-java-melody.version}</version>
             <scope>runtime</scope>
         </dependency>
+        -->
         <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
