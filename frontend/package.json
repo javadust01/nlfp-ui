@@ -20,7 +20,7 @@
     "bootstrap-vue": "^2.0.0-rc.1",
     "dsb-vue-keycloak": "^17.11.28-37600",
     "font-awesome": "^4.7.0",
-    "keycloak-js": "2.5.5",
+    "keycloak-js": "3.4.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

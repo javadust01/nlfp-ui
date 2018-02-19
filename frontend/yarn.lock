@@ -4304,6 +4304,10 @@ keycloak-js@2.5.5:
   version "2.5.5"
   resolved "http://vnexus.utv.lokal/content/groups/npm-all/keycloak-js/-/keycloak-js-2.5.5.tgz#c4b51f5a14635b13508a9a247b2a364e807618c5"
 
+keycloak-js@3.4.3:
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/keycloak-js/-/keycloak-js-3.4.3.tgz#9fbb1ba7b2433229f5cc8babbd308ff0e945dac7"
+
 killable@^1.0.0:
   version "1.0.0"
   resolved "http://vnexus.utv.lokal/content/groups/npm-all/killable/-/killable-1.0.0.tgz#da8b84bd47de5395878f95d64d02f2449fe05e6b"
